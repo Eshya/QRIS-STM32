@@ -1,0 +1,42 @@
+# Compiled output
+Build/
+
+# IDE-specific files
+.vscode/
+.idea/
+.project
+.cproject
+
+# Debug files
+Debug/
+*.stackdump
+
+# Generated files
+Generated/
+*.dep
+*.mk
+*.bin
+*.hex
+*.elf
+*.map
+*.sym
+
+# User-specific files
+*.cproject.user
+*.launch
+*.gdbinit
+
+# macOS specific files
+.DS_Store
+
+# Compiled Libraries
+Libraries/
+
+# Logs and reports
+*.log
+*.trc
+*.csv
+
+# Miscellaneous
+*.swp
+*~
