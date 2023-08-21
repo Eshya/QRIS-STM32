@@ -1,7 +1,7 @@
 #include <gui/widgets/QRCodeWidget.hpp>
 #include <touchgfx/hal/HAL.hpp>
 #include <touchgfx/lcd/LCD.hpp>
-#include <string>
+// #include <string>
 #include <cstring>
 
 QRCodeWidget::QRCodeWidget() :
@@ -11,12 +11,28 @@ QRCodeWidget::QRCodeWidget() :
 {
 }
 
-void QRCodeWidget::setQRCode(QRCode* qrCode)
+void QRCodeWidget::setQRCode(QRCodeLM* qrCode)
 {
     code = qrCode;
     updateSize();
 }
 
+uint8_t QRCodeWidget::getSize(QRCodeLM* qrCode)
+{
+    // uint16_t displayWidth = touchgfx::HAL::DISPLAY_WIDTH;
+    uint8_t bitDepth = touchgfx::HAL::lcd().bitDepth();
+    uint8_t byteDepth = bitDepth >> 3; // 暂不支持 bitDepth 为 1/2/4 的情形
+    // touchgfx::Rect absolute = getAbsoluteRect();
+    int16_t w = getWidth();
+    // int16_t h = getHeight();
+
+    // uint8_t* framebuffer = (uint8_t*)touchgfx::HAL::getInstance()->lockFrameBuffer();
+    // int16_t qrsize = static_cast<int16_t>(code->size);
+    // int16_t borderSize = borderWidth * byteDepth;
+    // int16_t qrBlockSize = scale * byteDepth;
+    int16_t bufSize = w * byteDepth;
+    return static_cast<uint8_t>(bufSize);
+}
 void QRCodeWidget::draw(const touchgfx::Rect& invalidatedArea) const
 {
     if (!code)
@@ -60,12 +76,15 @@ void QRCodeWidget::draw(const touchgfx::Rect& invalidatedArea) const
     */
 
     // 上面是没有优化的代码，在真机上基本无法运行（但易于理解），下面是经过优化的代码
-    int16_t qrsize = code->getSize();
+    // int8_t qrsize8t = qrcode_size(code);
+    // int16_t qrsize = static_cast<int16_t>(qrsize8t);
+    int16_t qrsize = static_cast<int16_t>(code->size);
     int16_t borderSize = borderWidth * byteDepth;
     int16_t qrBlockSize = scale * byteDepth;
     int16_t bufSize = w * byteDepth;
     uint16_t copyLen = invalidatedArea.width * byteDepth;
-    uint8_t* buffer = new uint8_t[bufSize];
+    uint8_t* buffer = (uint8_t*)malloc(bufSize * sizeof(uint8_t));
+    // uint8_t* buffer = new uint8_t[bufSize];
 
     for (int16_t y = invalidatedArea.y; y < invalidatedArea.bottom(); y++)
     {
@@ -81,7 +100,7 @@ void QRCodeWidget::draw(const touchgfx::Rect& invalidatedArea) const
                 int16_t j = (y - borderWidth) / scale;
                 for (int16_t i = 0; i < qrsize; i++)
                 {
-                    uint8_t value = code->getModule(i, j) ? 0x00 : 0xff;
+                    uint8_t value = qrcode_getModule(code,i, j) ? 0xff : 0x00;
                     memset(addr, value, qrBlockSize);
                     addr += qrBlockSize;
                 }
@@ -97,11 +116,13 @@ void QRCodeWidget::draw(const touchgfx::Rect& invalidatedArea) const
         uint8_t* frameAddr = &framebuffer[(absolute.x + invalidatedArea.x + (absolute.y + y) * displayWidth) * byteDepth];
         memcpy(frameAddr, buffer + invalidatedArea.x, copyLen);
     }
-
-    delete[] buffer;
+    free(buffer);
+    // delete[] buffer;
 
     touchgfx::HAL::getInstance()->unlockFrameBuffer();
 }
+
+
 
 touchgfx::Rect QRCodeWidget::getSolidRect() const
 {
@@ -124,7 +145,7 @@ void QRCodeWidget::updateSize()
 {
     if (code)
     {
-        setWidth(code->getSize() * scale + 2 * borderWidth);
-        setHeight(code->getSize() * scale + 2 * borderWidth);
+        setWidth(static_cast<int16_t>(code->size) * scale + 2 * borderWidth);
+        setHeight(static_cast<int16_t>(code->size) * scale + 2 * borderWidth);
     }
 }

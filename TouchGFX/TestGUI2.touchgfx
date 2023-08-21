@@ -10,13 +10,74 @@
             "Width": 240,
             "Height": 320,
             "Color": {
-              "Red": 63,
-              "Green": 130,
-              "Blue": 212
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
             }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 58,
+            "Y": 23,
+            "Width": 132,
+            "Height": 34,
+            "TextId": "__SingleUse_UT0C",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_NZNB",
+              "UseBuffer": true,
+              "BufferSize": 255
+            }
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "buttonWithLabel1",
+            "Y": 270,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_inactive.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_inactive.png",
+            "TextId": "__SingleUse_KX5L",
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "Container",
+            "Name": "containerQR",
+            "Y": 57,
+            "Width": 240,
+            "Height": 213,
+            "Components": []
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "updateText"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonWithLabel1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "showqr"
+            }
+          }
+        ]
       }
     ],
     "CustomContainerDefinitions": [],
@@ -57,6 +118,7 @@
     "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
     "PostGenerateTargetCommand": "touchgfx update_project",
     "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "CompileSimulatorCommandOverride": "make -f simulator/gcc/Makefile -j8 CFLAGS=\"-Wno-unknown-pragmas -Wno-unused-variable\"",
     "RunSimulatorCommand": "build\\bin\\simulator.exe",
     "CompileTargetCommandOverride": "make -f ../gcc/Makefile -j8",
     "FlashTargetCommandOverride": "make -f ../gcc/Makefile flash",

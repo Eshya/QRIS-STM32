@@ -246,6 +246,9 @@
     <ClCompile Include="..\..\gui\src\containers\DualSwipeContainer.cpp">
       <Filter>Source Files\gui\containers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\gui\src\model\QRCodeLM.c">
+      <Filter>Source Files\gui\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml">
@@ -708,6 +711,9 @@
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\containers\DualSwipeContainer.hpp">
       <Filter>Header Files\gui\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\model\QRCodeLM.h">
+      <Filter>Source Files\gui\model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

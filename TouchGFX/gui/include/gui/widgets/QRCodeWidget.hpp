@@ -4,6 +4,7 @@
 #include <touchgfx/widgets/Widget.hpp>
 #include <touchgfx/hal/Types.hpp>
 #include <gui/model/QRCode.hpp>
+#include <gui/model/QRCodeLM.h>
 
 using namespace qrcodegen;
 
@@ -53,7 +54,7 @@ public:
      *
      * @brief Set the qr code to display
      */
-    void setQRCode(QRCode* code);
+    void setQRCode(QRCodeLM* code);
 
     /**
      * @fn void QRCodeWidget::setScale(uint8_t s);
@@ -61,6 +62,8 @@ public:
      * @brief Set the scaling factor of the widget
      */
     void setScale(uint8_t s);
+
+    uint8_t getSize(QRCodeLM* code);
 
     /**
      * @fn void QRCodeWidget::setBorderWidth(uint8_t width);
@@ -72,7 +75,7 @@ public:
 private:
     void updateSize();
 
-    QRCode* code;
+    QRCodeLM* code;
     uint8_t scale;
     uint8_t borderWidth;
 };

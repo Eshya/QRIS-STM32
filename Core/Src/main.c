@@ -21,7 +21,6 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "app_touchgfx.h"
-#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -151,17 +150,6 @@ uint32_t Spi5Timeout = SPI5_TIMEOUT_MAX; /*<! Value of Timeout when SPI communic
   * @brief  The application entry point.
   * @retval int
   */
-#ifdef __GNUC__
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#endif
-
-PUTCHAR_PROTOTYPE
-{
-  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
-  return ch;
-}
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -172,7 +160,6 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-  printf("hello \n");
 
   /* USER CODE BEGIN Init */
 
@@ -241,13 +228,15 @@ int main(void)
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  printf("Characters: %c %c\n", 'a', 65);
-  printf("Decimals: %d %ld\n", 1977, 650000L);
-  printf("Preceding with blanks: %10d\n", 1977);
-  printf("Preceding with zeros: %010d\n", 1977);
-  printf("Some different radices: %d %x %o %#x %#o\n", 100, 100, 100, 100, 100);
-  printf("Width trick: %*d\n", 5, 10);
-  printf("%s\n", "A string");
+//  printf("Characters: %c %c\n", 'a', 65);
+//  printf("Decimals: %d %ld\n", 1977, 650000L);
+//  printf("Preceding with blanks: %10d\n", 1977);
+//  printf("Preceding with zeros: %010d\n", 1977);
+//  printf("Some different radices: %d %x %o %#x %#o\n", 100, 100, 100, 100, 100);
+//  printf("Width trick: %*d\n", 5, 10);
+
+  char data[] = {"Hey Universe\n\r"};
+  printf("Debug message: %c\r\n", data);
   while (1)
   {
     /* USER CODE END WHILE */

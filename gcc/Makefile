@@ -130,19 +130,32 @@ assembler_options += \
     -Wall
 
 c_compiler := arm-none-eabi-gcc
+# c_compiler_options += \
+#     -g \
+#     -mthumb -fno-exceptions \
+#     -mno-thumb-interwork -std=gnu11 \
+#     $(no_libs) \
+#     -Os -fno-strict-aliasing -fdata-sections -ffunction-sections
+
+#eshya
 c_compiler_options += \
     -g \
-    -mthumb -fno-exceptions \
+    -mthumb -fexceptions \
     -mno-thumb-interwork -std=gnu11 \
     $(no_libs) \
     -Os -fno-strict-aliasing -fdata-sections -ffunction-sections
-
+	
 cpp_compiler := arm-none-eabi-g++
+# cpp_compiler_options += \
+#     -g -mthumb \
+#     -mno-thumb-interwork -fno-rtti -fno-exceptions  \
+#     -Os -fno-strict-aliasing -fdata-sections -ffunction-sections
+
+#eshya 
 cpp_compiler_options += \
     -g -mthumb \
-    -mno-thumb-interwork -fno-rtti -fno-exceptions  \
+    -mno-thumb-interwork -fno-rtti -fexceptions  \
     -Os -fno-strict-aliasing -fdata-sections -ffunction-sections
-
 linker := arm-none-eabi-g++
 linker_options += \
     -mcpu=cortex-m4 -mthumb -specs=nosys.specs -specs=nano.specs -Wl,-Map=output.map -Wl,--gc-sections

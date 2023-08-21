@@ -24,11 +24,13 @@ ADDITIONAL_SOURCES :=
 ADDITIONAL_INCLUDE_PATHS := 
 ADDITIONAL_LIBRARY_PATHS := 
 ADDITIONAL_LIBRARIES :=
-export ADDITIONAL_SOURCES ADDITIONAL_INCLUDE_PATHS ADDITIONAL_LIBRARY_PATHS ADDITIONAL_LIBRARIES
+CFLAGS := -Wall
+CXXFLAGS := -Wall
+export ADDITIONAL_SOURCES ADDITIONAL_INCLUDE_PATHS ADDITIONAL_LIBRARY_PATHS ADDITIONAL_LIBRARIES CFLAGS CXXFLAGS
 
 all: $(filter assets,$(MAKECMDGOALS))
 all assets: $(filter clean,$(MAKECMDGOALS))
 all clean assets:
-	@$(MAKE) -r -f generated/simulator/gcc/Makefile -s $(MFLAGS) $@ -C "$(application_path)"
+	@$(MAKE) -r -f generated/simulator/gcc/Makefile -s $(MFLAGS) $@ -C "$(application_path)" -Wall
 endif
 

@@ -27,6 +27,7 @@
     <ClCompile Include="..\..\gui\src\model\QRCode.cpp"/>
     <ClCompile Include="..\..\gui\src\widgets\QRCodeWidget.cpp"/>
     <ClCompile Include="..\..\gui\src\containers\DualSwipeContainer.cpp"/>
+    <ClCompile Include="..\..\gui\src\model\QRCodeLM.c"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -184,6 +185,7 @@
     <ClInclude Include="..\..\gui\include\gui\widgets\QRCodeWidget.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\common\Constants.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\containers\DualSwipeContainer.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\model\QRCodeLM.h"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>
